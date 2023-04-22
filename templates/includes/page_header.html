@@ -1,0 +1,100 @@
+<nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop4"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTop4">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Language</a>
+                    <ul class="dropdown-menu small">
+                        <li><a class="dropdown-item" href="#">English</a></li>
+                        <li><a class="dropdown-item" href="#">Franch</a></li>
+                        <li><a class="dropdown-item" href="#">Spanish</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> EUR </a>
+                    <ul class="dropdown-menu small">
+                        <li><a class="dropdown-item" href="#">USD</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a href="#" class="nav-link"> <i class="fa fa-envelope"></i> Email </a></li>
+                <li><a href="#" class="nav-link"> <i class="fa fa-phone"></i> Call us </a></li>
+            </ul> <!-- list-inline //  -->
+        </div> <!-- navbar-collapse .// -->
+    </div> <!-- container //  -->
+</nav>
+
+<section class="p-3">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-1 col-md-3 col-6">
+                <a href="{% url 'home' %}" class="brand-wrap">
+                    <h2 class="logo-font text-black">E-shop</h3>
+                </a> <!-- brand-wrap.// -->
+            </div>
+            <div class="col-lg col-sm col-md col-6 flex-grow-0">
+                <div class="category-wrap dropdown d-inline-block float-right">
+                    <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bars"></i> All category
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Machinery / Mechanical Parts / Tools </a>
+                        <a class="dropdown-item" href="#">Consumer Electronics / Home Appliances </a>
+                        <a class="dropdown-item" href="#">Auto / Transportation</a>
+                        <a class="dropdown-item" href="#">Apparel / Textiles / Timepieces </a>
+                        <a class="dropdown-item" href="#">Home & Garden / Construction / Lights </a>
+                        <a class="dropdown-item" href="#">Beauty & Personal Care / Health </a>
+                    </div>
+                </div> <!-- category-wrap.// -->
+            </div> <!-- col.// -->
+            <div class="col-lg col-md-6 col-sm-12 col">
+                <form method="GET" action="#">
+                    <div class="input-group">
+                        <input class="form-control border border-black rounded-0" type="text" name="q"
+                            placeholder="Search our site">
+                        <div class="input-group-append">
+                            <button class="form-control btn btn-black border border-black rounded-0"
+                                type="submit">
+                                <span class="icon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </button>
+                            <a href="#" class="form-control btn btn-black border border-black rounded-0"
+                                style="margin-left: 5px;"><i class="fas fa-sync-alt"></i></a>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- col.// -->
+            <div class="col-lg-4 col-sm-6 col-8 order-2 order-lg-3">
+                <div class="d-flex justify-content-end mb-3 mb-lg-0">
+                    <div class="text-center">
+                        <small class="title text-muted">Welcome guest!</small>
+                        <div>
+                            {% if request.user.is_authenticated %}
+                                <a href="" class="btn btn-md btn-add-product "><i class="fa-solid fa-plus"></i>&nbsp;Add new product</a>
+                                <a href="" class="btn btn-md">My Products</a>
+                                <a href="" class="btn btn-md">My Profile</a>
+                                <a href="{% url 'account_logout' %}" class="btn btn-md btn-black">Logout</a>
+                            {% else %} 
+                                <a href="{% url 'account_signup' %}" class="btn btn-md btn-black">Register</a>
+                                <a href="{% url 'account_login' %}" class="btn btn-md btn-black">Login</a>
+                                <a href="" class="btn btn-md btn-add-product "><i class="fa-solid fa-plus"></i>&nbsp;Add new product</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <a href="#" class="my-auto mb-3 ml-3 mb-lg-0">
+                        <div class="icon icon-md">
+                            <i class="fa fa-shopping-cart text-black" style="font-size: 20px;"></i>
+                        </div>
+                        <span class="badge badge-pill badge-danger notify">0</span>
+                    </a>
+                </div> <!-- widgets-wrap.// -->
+            </div> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- container.// -->
+</section> <!-- header-main .// -->

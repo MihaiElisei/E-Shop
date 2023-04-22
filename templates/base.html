@@ -33,25 +33,27 @@
     {% endblock %}
 
     <title>E-Shop {% block extra_title %}{% endblock %}</title>
-  <body>
-    <header class="container-fluid">
-      
+<body>
+    <header class="container-fluid" style="background-color: #fff;">
+        {% include 'includes/page_header.html' %}
     </header>
-    
-    {% if messages %}
-        <div class="message-container"></div>
-    {% endif %}
 
-    {% block page_header %}
-    {% endblock %}
-    
-    {% block content %}
-    
-    {% endblock %}
+      {% if messages %}
+      <div class="message-container"></div>
+      {% endif %}
 
-   
+      {% block page_header %}
+      {% endblock %}
 
-    {% block postloadjs %}
-    {% endblock %}
-  </body>
-</html>
+      {% block content %}
+
+      {% endblock %}
+
+
+      {% include 'includes/page_footer.html' %}
+
+      {% block postloadjs %}
+      {% endblock %}
+</body>
+
+  </html>

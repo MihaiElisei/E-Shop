@@ -16,7 +16,7 @@
 of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
 for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
-<div class="socialaccount_ballot">
+<div class="socialaccount_ballot" >
 
   <ul class="socialaccount_providers">
     {% include "socialaccount/snippets/provider_list.html" with process="login" %}
@@ -33,7 +33,7 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 {% endif %}
 
-<form class="login" method="POST" action="{% url 'account_login' %}">
+<form class="login" method="POST" action="{% url 'account_login' %}"  style="min-height: 50vh;">
   {% csrf_token %}
   {{ form.as_p }}
   {% if redirect_field_value %}
