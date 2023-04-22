@@ -21,6 +21,17 @@ body {
     width: 1.5rem;
 }
 
+.overlay {
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+	background: white;
+	z-index: -1;
+}
+
+
 .logo-font {
     text-transform: uppercase;
 }
@@ -67,6 +78,11 @@ body {
     text-decoration: none;
 }
 
+.list-menu li  {
+    list-style: none;
+    color: #000!important;
+}
+
 /* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
     .fixed-top-desktop-only {
@@ -81,3 +97,4 @@ body {
         padding-top: 164px;
     }
 }
+

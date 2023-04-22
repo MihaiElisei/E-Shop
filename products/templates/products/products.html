@@ -2,19 +2,189 @@
 {% load static %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                {{ products }}
-            </div>
+<div class="overlay"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col text-center mt-3">
+            <h2 class="logo-font">Products</h2>
+            <hr class="w-50 mb-1">
         </div>
     </div>
+    <!-- ========================= SECTION CONTENT ========================= -->
+    <div class="row mt-5 ">
+        <div class="col-lg-2">
+            <div class="card filter-card">
+                <div class="filter-group">
+                    <div class="card-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true">
+                            <i class="icon-control fa fa-chevron-down text-black"></i>
+                            <h6 class="title text-black">Categories</h6>
+                        </a>
+                    </div>
+                    <div class="filter-content collapse show" id="collapse_1">
+                        <div class="card-body">
+                            <ul class="list-menu">
+                                <li><a href="#" class="text-black">Clothes</a></li>
+                                <li><a href="#" class="text-black">Electronics</a></li>
+                                <li><a href="#" class="text-black">Furniture</a></li>
+                                <li><a href="#" class="text-black">Gaming</a></li>
+                                <li><a href="#" class="text-black">Home Appliances</a></li>
+                                <li><a href="#" class="text-black">Services</a></li>
+                            </ul>
+                        </div> <!-- card-body.// -->
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="card-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true">
+                            <i class="icon-control fa fa-chevron-down text-black"></i>
+                            <h6 class="title text-black">Sizes </h6>
+                        </a>
+                    </div>
+                    <div class="filter-content collapse show" id="collapse_4">
+                        <div class="card-body">
+                            <label class="checkbox-btn">
+                                <input type="checkbox">
+                                <span class="btn btn-sm"> S </span>
+                            </label>
+                            <label class="checkbox-btn">
+                                <input type="checkbox">
+                                <span class="btn btn-sm"> M </span>
+                            </label>
+
+                            <label class="checkbox-btn">
+                                <input type="checkbox">
+                                <span class="btn btn-sm"> L </span>
+                            </label>
+
+                            <label class="checkbox-btn">
+                                <input type="checkbox">
+                                <span class="btn btn-sm"> XL </span>
+                            </label>
+                        </div><!-- card-body.// -->
+                    </div>
+                    <div class="filter-group">
+                        <div class="card-header">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true">
+                                <i class="icon-control fa fa-chevron-down text-black"></i>
+                                <h6 class="title text-black">Price range</h6>
+                            </a>
+                        </div>
+                        <div class="filter-content collapse show" id="collapse_3">
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>Min</label>
+                                        <!-- <input class="form-control" placeholder="$0" type="number"> -->
+                                        <select class="mr-2 form-control border-black">
+                                            <option value="0">$0</option>
+                                            <option value="50">$50</option>
+                                            <option value="100">$100</option>
+                                            <option value="150">$150</option>
+                                            <option value="200">$200</option>
+                                            <option value="500">$500</option>
+                                            <option value="1000">$1000</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group text-right col-md-6">
+                                        <label>Max</label>
+                                        <select class="mr-2 form-control border-black">
+                                            <option value="50">$50</option>
+                                            <option value="100">$100</option>
+                                            <option value="150">$150</option>
+                                            <option value="200">$200</option>
+                                            <option value="500">$500</option>
+                                            <option value="1000">$1000</option>
+                                            <option value="2000">$2000+</option>
+                                        </select>
+                                    </div>
+                                </div> <!-- form-row.// -->
+                                <button class="btn btn-block btn-black">Apply</button>
+                            </div><!-- card-body.// -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="form-inline">
+                <span class="mr-md-auto"><strong>{{ products_count }}</strong> Items found </span>
+                <hr class="w-100">
+            </div>
+            <div class="row">
+            {% for product in products %}
+                <div class="col-sm-12 col-md-8 col-lg-3 col-xl-3">
+                    <div class="card border-0">
+                        {% if product.image %}
+                        <a href="#">
+                            <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}" style="max-height: 350px;">
+                        </a>
+                        {% else %}
+                        <a href="#">
+                            <img class="card-img-top img-fluid" src="/media/noimage.png" alt="{{ product.name }}">
+                        </a>
+                        {% endif %}
+                        <div class="card-body pb-0">
+                            <p class="mb-0">{{ product.name }}</p>
+                        </div>
+                        <div class="card-footer bg-white pt-0 border-0 text-left">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="lead mb-0 text-left font-weight-bold">${{ product.price }}</p>
+                                    {% if product.category %}
+                                        <p class="small mt-1 mb-0">
+                                            <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
+                                                <i class="fas fa-tag mr-1"></i>{{ product.category.friendly_name }}
+                                            </a>
+                                        </p>
+                                    {% endif %}
+                                    {% if product.rating %}
+                                        <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+                                    {% else %}
+                                        <small class="text-muted">No Rating</small>
+                                    {% endif %}
+                                    {% if request.user.is_superuser %}
+                                        <small class="ml-3">
+                                            <a href="#">Edit</a> |
+                                            <a class="text-danger" href="#">Delete</a>
+                                        </small>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% if forloop.counter|divisibleby:1 %}
+                <div class="col-12 d-sm-none mb-5">
+                    <hr>
+                </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:2 %}
+                <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                    <hr>
+                </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:3 %}
+                <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                    <hr>
+                </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:4 %}
+                <div class="col-12 d-none d-xl-block mb-5">
+                    <hr>
+                </div>
+            {% endif %}
+        {% endfor %}
+            </div>
+        </div>
+    </div> <!-- main-row.// -->
+</div>
 {% endblock %}
