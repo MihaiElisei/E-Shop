@@ -124,12 +124,12 @@
                 <div class="col-sm-12 col-md-8 col-lg-3 col-xl-3">
                     <div class="card border-0">
                         {% if product.image %}
-                        <a href="#">
-                            <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}" style="max-height: 350px;">
+                        <a href="{% url 'product_detail' product.id %}">
+                            <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}" style="height: 250px; width: 250px;">
                         </a>
                         {% else %}
-                        <a href="#">
-                            <img class="card-img-top img-fluid" src="/media/noimage.png" alt="{{ product.name }}">
+                        <a href="{% url 'product_detail' product.id %}">
+                            <img class="card-img-top img-fluid" src="/media/noimage.png" alt="{{ product.name }}" style="height: 250px; width: 250px;">
                         </a>
                         {% endif %}
                         <div class="card-body pb-0">
@@ -138,7 +138,7 @@
                         <div class="card-footer bg-white pt-0 border-0 text-left">
                             <div class="row">
                                 <div class="col">
-                                    <p class="lead mb-0 text-left font-weight-bold">${{ product.price }}</p>
+                                    <p class="lead mb-0 text-left font-weight-bold">&euro; {{ product.price }}</p>
                                     {% if product.category %}
                                         <p class="small mt-1 mb-0">
                                             <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
@@ -147,7 +147,7 @@
                                         </p>
                                     {% endif %}
                                     {% if product.rating %}
-                                        <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+                                        <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 10</small>
                                     {% else %}
                                         <small class="text-muted">No Rating</small>
                                     {% endif %}
