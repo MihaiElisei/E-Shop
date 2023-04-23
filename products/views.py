@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from .models import Product, Category
+from cart.models import CartItem, Cart
+from cart.views import _cart_id
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
@@ -62,11 +64,18 @@ def all_products(request, category_slug=None):
 
 def product_detail(request, product_id):
     """ A view to show individual product details"""
+    try:
+        product = get_object_or_404(Product, pk=product_id)
 
-    product = get_object_or_404(Product, pk=product_id)
+        in_cart = CartItem.objects.filter(
+            cart__cart_id=_cart_id(request), product=product
+            ).exists()
+    except Exception as e:
+        raise e
 
     context = {
-        'product': product
+        'product': product,
+        'in_cart': in_cart,
     }
 
     return render(request, 'products/product_detail.html', context)

@@ -119,8 +119,16 @@
 									cart</s></span> <i class="fas fa-shopping-cart"></i> </a>
                                     <h6 class="text-danger text-right mt-1 text-uppercase">Out of stock</h6>
                                 {% else %}
-                                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-black rounded-0 mt-5"> <span class="text">Add to
-									cart</span> <i class="fas fa-shopping-cart"></i> </a>
+                                    {% if in_cart %}
+                                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success rounded-0 mt-5"  style="pointer-events: none;"> <span class="text">Added to
+                                        cart</span> <i class="fas fa-check"></i> </a>
+                                        <a href="{% url 'view_cart' %}" class="btn btn-outline-dark rounded-0 mt-5"> <span class="text">View cart</span>
+                                             <i class="fas fa-eye"></i> 
+                                        </a>
+                                    {% else %}
+                                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-black rounded-0 mt-5"> <span class="text">Add to
+                                        cart</span> <i class="fas fa-shopping-cart"></i> </a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
