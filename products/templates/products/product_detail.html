@@ -115,10 +115,12 @@
                                     <span class="text-uppercase">Keep Shopping</span>
                                 </a>
                                 {% if product.stock <= 0 %}
-                                    <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Bag" disabled="disabled">
+                                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-danger rounded-0 mt-5" style="pointer-events: none;"> <span class="text"><s>Add to
+									cart</s></span> <i class="fas fa-shopping-cart"></i> </a>
                                     <h6 class="text-danger text-right mt-1 text-uppercase">Out of stock</h6>
                                 {% else %}
-                                    <input type="submit" class="btn btn-black rounded-0 text-uppercase mt-5" value="Add to Bag">
+                                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-black rounded-0 mt-5"> <span class="text">Add to
+									cart</span> <i class="fas fa-shopping-cart"></i> </a>
                                 {% endif %}
                             </div>
                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
