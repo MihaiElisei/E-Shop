@@ -32,14 +32,28 @@
                     <div class="filter-content collapse show" id="collapse_1">
                         <div class="card-body">
                             <ul class="list-menu">
-                                <li><a href="#" class="text-black">Clothes</a></li>
-                                <li><a href="#" class="text-black">Electronics</a></li>
-                                <li><a href="#" class="text-black">Furniture</a></li>
-                                <li><a href="#" class="text-black">Gaming</a></li>
-                                <li><a href="#" class="text-black">Home Appliances</a></li>
-                                <li><a href="#" class="text-black">Services</a></li>
+                                {% for category in categories %}
+                                    <li><a class="text-black" href="{{ category.get_url }}">{{ category.name }}</a></li>
+                                {% endfor %}
+                                <li><a class="text-black" href="{% url 'products' %}">All Products</a></li>
                             </ul>
-                        </div> <!-- card-body.// -->
+                        </div> 
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <div class="card-header">
+                        <a href="#" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true">
+                            <i class="icon-control fa fa-chevron-down text-black"></i>
+                            <h6 class="title text-black">All Products</h6>
+                        </a>
+                    </div>
+                    <div class="filter-content collapse show mt-2" id="collapse_2">
+                        <ul class="list-menu">
+                            <li><a class="text-black"  href="{% url 'products' %}?sort=price&direction=asc">By Price</a></li>
+                            <li><a class="text-black"  href="{% url 'products' %}?sort=rating&direction=desc">By Rating</a></li>
+                            <li><a class="text-black"  href="{% url 'products' %}?sort=category&direction=asc">By Category</a></li>
+                            <li><a class="text-black"  href="{% url 'products' %}">All Products</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="filter-group">
@@ -115,9 +129,30 @@
             </div>
         </div>
         <div class="col-10">
-            <div class="form-inline">
-                <span class="mr-md-auto"><strong>{{ products_count }}</strong> Items found </span>
-                <hr class="w-100">
+            <div class="row mt-1 mb-2">
+                <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
+                    <div class="sort-select-wrapper w-50">
+                        <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
+                            <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
+                            <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
+                            <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
+                            <option value="rating_asc" {% if current_sorting == 'rating_asc' %}selected{% endif %}>Rating (low to high)</option>
+                            <option value="rating_desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>Rating (high to low)</option>
+                             <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
+                            <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
+                            <option value="category_asc" {% if current_sorting == 'category_asc' %}selected{% endif %}>Category (A-Z)</option>
+                            <option value="category_desc" {% if current_sorting == 'category_desc' %}selected{% endif %}>Category (Z-A)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 order-md-first">
+                    <p class="text-muted mt-3 text-center text-md-left">
+                        {% if search_term or current_categories or current_sorting != 'None_None' %}
+                            <span class="small"><a href="{% url 'products' %}">Products Home</a> | </span>
+                        {% endif %}
+                        {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+                    </p>
+                </div>
             </div>
             <div class="row">
             {% for product in products %}
@@ -142,7 +177,7 @@
                                     {% if product.category %}
                                         <p class="small mt-1 mb-0">
                                             <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
-                                                <i class="fas fa-tag mr-1"></i>{{ product.category.friendly_name }}
+                                                <i class="fas fa-tag mr-1"></i>{{ product.category.name }}
                                             </a>
                                         </p>
                                     {% endif %}

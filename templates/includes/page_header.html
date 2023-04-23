@@ -43,17 +43,14 @@
                         <i class="fa fa-bars"></i> All Categories
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Clothing</a>
-                        <a class="dropdown-item" href="#">Electronics</a>
-                        <a class="dropdown-item" href="#">Furniture</a>
-                        <a class="dropdown-item" href="#">Gaming</a>
-                        <a class="dropdown-item" href="#">Home Appliances</a>
-                        <a class="dropdown-item" href="#">Services</a>
+                        {% for category in categories %}
+                        <a class="dropdown-item" href="{{ category.get_url }}">{{ category.name }}</a>
+                        {% endfor %}
                     </div>
                 </div> <!-- category-wrap.// -->
             </div> <!-- col.// -->
             <div class="col-lg col-md-4 col-sm-12 col">
-                <form method="GET" action="#">
+                <form method="GET" action="{% url 'products' %}">
                     <div class="input-group">
                         <input class="form-control border border-black rounded-0" type="text" name="q"
                             placeholder="Search our site">
@@ -64,7 +61,7 @@
                                     <i class="fas fa-search"></i>
                                 </span>
                             </button>
-                            <a href="#" class="form-control btn btn-black border border-black rounded-0"
+                            <a href="{% url 'products' %}" class="form-control btn btn-black border border-black rounded-0"
                                 style="margin-left: 5px;"><i class="fas fa-sync-alt"></i></a>
                         </div>
                     </div>

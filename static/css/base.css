@@ -74,6 +74,14 @@ body {
     color: white;
 }
 
+.btn-dark:active, 
+.btn-dark:focus,
+.btn-dark:hover {
+    background: #fff!important;
+    border: 1px solid black;
+    color: #000!important;
+}
+
 .brand-wrap:hover{
     text-decoration: none;
 }
@@ -82,6 +90,16 @@ body {
     list-style: none;
     color: #000!important;
 }
+
+.box {
+    padding: 18px;
+    background: #fff;
+    border-radius: 0.37rem;
+    border: 1px solid #e4e4e4;
+  }
+  .box img {
+    max-width: 100%;
+  }
 
 /* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
