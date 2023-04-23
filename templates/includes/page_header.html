@@ -29,7 +29,7 @@
     </div> <!-- container //  -->
 </nav>
 
-<section class="p-3">
+<div class="p-3">
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-lg-1 col-md-3 col-6">
@@ -84,14 +84,14 @@
                             {% endif %}
                         </div>
                     </div>
-                    <a href="#" class="my-auto mb-3 ml-3 mb-lg-0">
+                    <a href="{% url 'view_cart' %}" class="my-auto mb-3 ml-3 mb-lg-0">
                         <div class="icon icon-md">
                             <i class="fa fa-shopping-cart text-black" style="font-size: 20px;"></i>
                         </div>
                         <span class="badge badge-pill badge-danger notify">0</span>
                     </a>
-                </div> <!-- widgets-wrap.// -->
-            </div> <!-- col.// -->
-        </div> <!-- row.// -->
-    </div> <!-- container.// -->
-</section> <!-- header-main .// -->
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
