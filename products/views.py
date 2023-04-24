@@ -5,6 +5,7 @@ from cart.views import _cart_id
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models.functions import Lower
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 def all_products(request, category_slug=None):
@@ -19,10 +20,18 @@ def all_products(request, category_slug=None):
     if category_slug is not None:
         categories = get_object_or_404(Category, slug=category_slug)
         products = Product.objects.filter(category=categories, is_available=True)
-       
+
+        # Paginator
+        paginator = Paginator(products, 999)
+        page = request.GET.get('page')
+        paged_products = paginator.get_page(page)
     else:
-        products = Product.objects.all().filter(is_available=True)  # Display only available products
-       
+        products = Product.objects.all().filter(is_available=True).order_by('id')  # Display only available products
+
+        # Paginator
+        paginator = Paginator(products, 10)
+        page = request.GET.get('page')
+        paged_products = paginator.get_page(page)
 
     # Search and sort products
     if request.GET:
@@ -52,8 +61,7 @@ def all_products(request, category_slug=None):
     current_sorting = f'{sort}_{direction}'
 
     context = {
-        'products': products,
-        
+        'products': paged_products,
         'search_term': query,
         'current_categories': categories,
         'current_sorting': current_sorting,

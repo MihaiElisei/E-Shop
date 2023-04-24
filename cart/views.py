@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from .models import Cart, CartItem
 from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def view_cart(request, total=0, quantity=0, cart_items=None):
     """ A view that renders the cart content page """
     try:
+        vat = 0
         cart = Cart.objects.get(cart_id=_cart_id(request))
         cart_items = CartItem.objects.filter(cart=cart, is_active=True)
         for cart_item in cart_items:
@@ -15,7 +17,7 @@ def view_cart(request, total=0, quantity=0, cart_items=None):
         vat = (10 * total)/100
         grand_total = total + vat
 
-    except ObjectNotExist:
+    except ObjectDoesNotExist:
         pass 
 
     context = {

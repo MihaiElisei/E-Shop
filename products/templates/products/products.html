@@ -150,7 +150,7 @@
                         {% if search_term or current_categories or current_sorting != 'None_None' %}
                             <span class="small"><a href="{% url 'products' %}">Products Home</a> | </span>
                         {% endif %}
-                        {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
+                        {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %} 
                     </p>
                 </div>
             </div>
@@ -218,9 +218,36 @@
                 </div>
             {% endif %}
         {% endfor %}
-            </div>
+      
         </div>
-    </div> <!-- main-row.// -->
+        <div>
+            {% if products.has_other_pages %}
+            <nav class="mt-5 ml-5" aria-label="Page navigation sample">
+                <ul class="pagination ">
+                    {% if products.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    {% endif %}
+                    {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                            <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if products.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}">Next</a></li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    {% endif %}
+                </ul>
+              </nav>
+              {% endif %}
+        </div>
+        
+        </div>
+    </div> 
 </div>
 <div class="btt-button shadow-sm rounded-0 border border-black">
     <a class="btt-link d-flex h-100">
