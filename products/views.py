@@ -20,19 +20,9 @@ def all_products(request, category_slug=None):
     if category_slug is not None:
         categories = get_object_or_404(Category, slug=category_slug)
         products = Product.objects.filter(category=categories, is_available=True)
-
-        # Paginator
-        paginator = Paginator(products, 999)
-        page = request.GET.get('page')
-        paged_products = paginator.get_page(page)
     else:
         products = Product.objects.all().filter(is_available=True).order_by('id')  # Display only available products
-
-        # Paginator
-        paginator = Paginator(products, 10)
-        page = request.GET.get('page')
-        paged_products = paginator.get_page(page)
-
+        
     # Search and sort products
     if request.GET:
         if 'sort' in request.GET:
@@ -59,9 +49,9 @@ def all_products(request, category_slug=None):
             products = products.filter(queries)
             
     current_sorting = f'{sort}_{direction}'
-
+    
     context = {
-        'products': paged_products,
+        'products': products,
         'search_term': query,
         'current_categories': categories,
         'current_sorting': current_sorting,
@@ -87,3 +77,5 @@ def product_detail(request, product_id):
     }
 
     return render(request, 'products/product_detail.html', context)
+
+

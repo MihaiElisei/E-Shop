@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product, Variation
+from django.contrib import messages
 from .models import Cart, CartItem
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
@@ -99,6 +100,7 @@ def add_to_cart(request, product_id):
             cart_item.variations.clear()
             cart_item.variations.add(*product_variation)
         cart_item.save()
+        messages.success(request, f'Added {product.name} to your cart')
     return redirect('view_cart')
 
 

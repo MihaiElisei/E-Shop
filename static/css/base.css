@@ -133,7 +133,20 @@ body {
     color: #212529;
   }
 
-  
+.message-container{
+    position: fixed;
+    top: 130px;
+    right: 15px;
+    z-index: 9999999;
+}
+
+.custom-toast{
+    overflow: visible;
+}
+
+.toast-capper{
+    height: 2px;
+}
 
 /* fixed top navbar only on medium and up */
 @media (min-width: 992px) {
